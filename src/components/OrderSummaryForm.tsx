@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Form,
   Input,
@@ -18,7 +18,9 @@ type TProps = {
 
 const OrderSummaryForm: React.FC<TProps> = ({ orderItems, initialData }) => {
   console.log("OrderSummaryForm");
+
   const [formData, setFormData] = useState(initialData);
+
   const onChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     data: InputOnChangeData
@@ -72,7 +74,7 @@ const OrderSummaryForm: React.FC<TProps> = ({ orderItems, initialData }) => {
     });
   };
 
-  if (orderItems.length > 0) {
+  if (orderItems.length > 0 && formData.total > 0) {
     return (
       <Form>
         {renderInput()}

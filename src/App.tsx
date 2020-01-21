@@ -1,8 +1,9 @@
 import React, { lazy, Suspense } from "react";
-import { Switch, Route, Link } from "react-router-dom";
-import { Container, Responsive } from "semantic-ui-react";
+import { Switch, Route } from "react-router-dom";
+import { Responsive } from "semantic-ui-react";
 import Header from "./Header";
-import Main from "./pages/Main";
+import MainPage from "./pages/Main";
+import OrderPage from "./pages/Order";
 const MobileBottomFixedMenu = lazy(() => import("./MobileBottomFixedMenu"));
 
 const renderMBFMenu = () => {
@@ -19,11 +20,13 @@ const App: React.FC = () => {
       <Header />
       <Switch>
         <Route exact path="/">
-          <Main />
+          <MainPage />
+        </Route>
+        <Route exact path="/order">
+          <OrderPage />
         </Route>
       </Switch>
       <Responsive as={renderMBFMenu} {...Responsive.onlyMobile} />
-      {/* {renderMBFMenu()} */}
     </React.Fragment>
   );
 };
