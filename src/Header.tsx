@@ -15,7 +15,6 @@ const DesktopMenu = () => {
 };
 
 const Header: React.FC = () => {
-  console.log(Responsive.onlyMobile);
   return (
     <Menu fixed="top" inverted>
       <Menu.Item as={Link} header to="/">

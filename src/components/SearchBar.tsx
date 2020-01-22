@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Search,
-  Label,
   SearchResultData,
   SearchProps,
-  SearchResultProps,
-  Item
+  SearchResultProps
 } from "semantic-ui-react";
 import debounce from "lodash/debounce";
 import escapeRegExp from "lodash/escapeRegExp";

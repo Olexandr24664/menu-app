@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Form,
   Input,
@@ -17,8 +17,6 @@ type TProps = {
 };
 
 const OrderSummaryForm: React.FC<TProps> = ({ orderItems, initialData }) => {
-  console.log("OrderSummaryForm");
-
   const [formData, setFormData] = useState(initialData);
 
   const onChange = (

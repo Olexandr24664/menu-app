@@ -1,3 +1,11 @@
 body {
   margin: 0;
 }
+
+.card .ui.ribbon.label {
+  left: -1rem;
+}
+
+#dimmer-menu>.content {
+  width: 50%;
+}

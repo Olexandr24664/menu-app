@@ -43,6 +43,8 @@ const defaultPadded =
     ? "vertically"
     : false;
 
+const defaultCols = window.innerWidth <= MAX_WIDTH_ONE_COLUMN ? "1" : "2";
+
 const getProducts = (state: AppState) => state.products;
 
 const ProductList: React.FC = () => {
@@ -53,7 +55,7 @@ const ProductList: React.FC = () => {
   }, [dispatch]);
 
   const [gridParams, setGridParams] = useState<GridParamsI>({
-    cols: "2",
+    cols: defaultCols,
     padded: defaultPadded
   });
 
