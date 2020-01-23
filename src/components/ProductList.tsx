@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Grid, Responsive, SemanticWIDTHS } from "semantic-ui-react";
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import debounce from "lodash/debounce";
+import queryString from "query-string";
 import { AppState } from "../reducers";
 import { ProductI } from "../interfaces/ProductI";
 import { fetchProducts } from "../actions";
 import ProductListItem from "./ProductListItem";
+import { useLocation } from "react-router-dom";
 
 const renderListItems = (products: ProductI[]) => {
   return products.map(product => {
@@ -47,12 +49,21 @@ const defaultCols = window.innerWidth <= MAX_WIDTH_ONE_COLUMN ? "1" : "2";
 
 const getProducts = (state: AppState) => state.products;
 
-const ProductList: React.FC = () => {
+const ProductList: React.FC = props => {
+  const location = useLocation();
+  const [queryParams, setQueryParams] = useState<{ [key: string]: any }>(
+    queryString.parse(location.search)
+  );
+
+  useEffect(() => {
+    setQueryParams(queryString.parse(location.search));
+  }, [location]);
+
   const products = useSelector(getProducts, shallowEqual);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    dispatch(fetchProducts(queryParams.menu));
+  }, [dispatch, queryParams.menu]);
 
   const [gridParams, setGridParams] = useState<GridParamsI>({
     cols: defaultCols,

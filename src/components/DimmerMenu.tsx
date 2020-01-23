@@ -26,6 +26,7 @@ const DimmerMenu: React.FC = () => {
           name="home"
           style={{ float: "right" }}
           onClick={() => {
+            toggleSidebar();
             history.push("/");
           }}
         />

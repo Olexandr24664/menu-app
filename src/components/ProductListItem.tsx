@@ -1,6 +1,7 @@
 import React, { useState, useCallback, Suspense, lazy } from "react";
 import { Card, Label, Image, Rating, Button, Icon } from "semantic-ui-react";
 import { ProductI } from "../interfaces/ProductI";
+import { useHistory } from "react-router-dom";
 const ModalQuantityAdd = lazy(() => import("./ModalQuantityAdd"));
 
 type PropsI = {
@@ -8,6 +9,7 @@ type PropsI = {
 };
 
 const ProductListItem: React.FC<PropsI> = ({ product }) => {
+  const history = useHistory();
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
@@ -17,10 +19,20 @@ const ProductListItem: React.FC<PropsI> = ({ product }) => {
     setModalOpen(false);
   }, []);
 
+  const goToProduct = useCallback(
+    () => history.push(`/product/${product.id}`),
+    [history, product.id]
+  );
+
   return (
     <React.Fragment>
       <Card fluid>
-        <Image wrapped ui={false}>
+        <Image
+          wrapped
+          ui={false}
+          style={{ cursor: "pointer" }}
+          onClick={goToProduct}
+        >
           {product.price_discount > 0 ? (
             <Label as="span" color="red" ribbon>
               Discount
@@ -29,7 +41,10 @@ const ProductListItem: React.FC<PropsI> = ({ product }) => {
           <img src={product.photo} alt={product.name} />
         </Image>
         <Card.Content>
-          <Card.Header>{product.name}</Card.Header>
+          <Card.Header onClick={goToProduct} style={{ cursor: "pointer" }}>
+            {product.name}
+          </Card.Header>
+
           <Card.Meta>
             <Rating rating={product.rating} maxRating="5" disabled />
           </Card.Meta>

@@ -6,6 +6,8 @@ import MainPage from "./pages/Main";
 import OrderPage from "./pages/Order";
 import { SidebarProvider } from "./context/menuSidebarContext";
 import DimmerMenu from "./components/DimmerMenu";
+import ProductPage from "./pages/Product";
+import { ToastContainer } from "react-toastify";
 const MobileBottomFixedMenu = lazy(() => import("./MobileBottomFixedMenu"));
 
 const renderMBFMenu = () => {
@@ -25,6 +27,9 @@ const App: React.FC = () => {
           <Route exact path="/">
             <MainPage />
           </Route>
+          <Route path="/product/:productid">
+            <ProductPage />
+          </Route>
           <Route exact path="/order">
             <OrderPage />
           </Route>
@@ -32,6 +37,12 @@ const App: React.FC = () => {
         <Responsive as={renderMBFMenu} {...Responsive.onlyMobile} />
         <Responsive as={DimmerMenu} {...Responsive.onlyMobile} />
       </SidebarProvider>
+      <ToastContainer
+        style={{ marginBottom: "30px" }}
+        enableMultiContainer
+        autoClose={2000}
+        containerId={"global"}
+      />
     </React.Fragment>
   );
 };

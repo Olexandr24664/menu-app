@@ -1,5 +1,11 @@
 import React, { useState, useCallback } from "react";
-import { Modal, Button, Input, InputOnChangeData } from "semantic-ui-react";
+import {
+  Modal,
+  Button,
+  Input,
+  InputOnChangeData,
+  Label
+} from "semantic-ui-react";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { ProductI } from "../interfaces";
@@ -25,7 +31,7 @@ const ModalQuantityAdd: React.FC<TProp> = React.memo(function ModalQuantityAdd({
     (errorMsg?: string) => {
       setBtnLoading(false);
       if (errorMsg) {
-        toast.error(errorMsg, { containerId: "modal" });
+        toast.error(errorMsg, { containerId: "modalQuantityAdd" });
       } else {
         onClose();
       }
@@ -46,7 +52,7 @@ const ModalQuantityAdd: React.FC<TProp> = React.memo(function ModalQuantityAdd({
   };
 
   return (
-    <Modal size="mini" open={open} dimmer="blurring" onClose={onClose}>
+    <Modal size="tiny" open={open} onClose={onClose}>
       <ToastContainer
         enableMultiContainer
         autoClose={2000}
@@ -54,7 +60,9 @@ const ModalQuantityAdd: React.FC<TProp> = React.memo(function ModalQuantityAdd({
       />
       <Modal.Header>{product.name}</Modal.Header>
       <Modal.Content>
+        <p>Amount</p>
         <Input
+          style={{ width: "100%" }}
           placeholder="Search..."
           type="number"
           value={quantity}

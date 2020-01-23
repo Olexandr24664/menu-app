@@ -1,7 +1,11 @@
 import { ProductI } from "../interfaces";
-import { EReduxActionTypes, FetchProductsAction } from "../actions";
+import {
+  EReduxActionTypes,
+  FetchProductsAction,
+  FetchProductAction
+} from "../actions";
 
-type TProductReducerActions = FetchProductsAction;
+type TProductReducerActions = FetchProductsAction | FetchProductAction;
 
 type TProductsState = ProductI[];
 
@@ -14,6 +18,10 @@ export const productReducer = (
   switch (action.type) {
     case EReduxActionTypes.FETCH_PRODUCTS: {
       return [...action.payload];
+    }
+    case EReduxActionTypes.FETCH_PRODUCT: {
+      const filtered = state.filter(p => p.id !== action.payload.id);
+      return [...filtered, action.payload];
     }
     default:
       return state;

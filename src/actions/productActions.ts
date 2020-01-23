@@ -8,7 +8,14 @@ export interface FetchProductsAction extends IReduxBaseAction {
   payload: ProductI[];
 }
 
-export const fetchProducts = () => async (dispatch: Dispatch) => {
+export interface FetchProductAction extends IReduxBaseAction {
+  type: EReduxActionTypes.FETCH_PRODUCT;
+  payload: ProductI;
+}
+
+export const fetchProducts = (categoryId?: string) => async (
+  dispatch: Dispatch
+) => {
   const productsList: ProductI[] = [
     {
       id: "0",
@@ -41,7 +48,7 @@ export const fetchProducts = () => async (dispatch: Dispatch) => {
   });
 };
 
-export const fetchProduct = (id: string) => async () => {
+export const fetchProduct = (id: string) => async (dispatch: Dispatch) => {
   const productsList: ProductI[] = [
     {
       id: "0",
@@ -68,4 +75,13 @@ export const fetchProduct = (id: string) => async () => {
       rating: 3
     }
   ];
+
+  const product = productsList.find(p => p.id === id);
+
+  if (product) {
+    dispatch<FetchProductAction>({
+      type: EReduxActionTypes.FETCH_PRODUCT,
+      payload: product
+    });
+  }
 };
