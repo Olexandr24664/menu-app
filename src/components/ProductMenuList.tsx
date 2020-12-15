@@ -30,7 +30,7 @@ const ProductMenuList: React.FC = () => {
               style={{ float: "left", marginRight: "15px" }}
             />
             {item.name}
-            <Label color="teal">{item.amount}</Label>
+            <Label color="teal">{item.products.length}</Label>
           </Menu.Item>
         );
       })}

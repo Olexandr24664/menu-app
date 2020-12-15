@@ -53,7 +53,6 @@ const SearchBar: React.FC = () => {
   ) => {
     setState({ ...state, value: data.result.title });
     history.push(`/product/${data.result.id}`);
-    // setState({ value: data.result });
   };
 
   const handleSearchChange = (
@@ -62,18 +61,14 @@ const SearchBar: React.FC = () => {
   ) => {
     setState({ ...state, isLoading: true, value: data.value });
 
-    if (data.value && data.value.length < 1) return setState(initialState);
+    if (data.value && data.value.length < 1) {
+      return setState(initialState);
+    }
 
     const re = new RegExp(escapeRegExp(data.value), "i");
     const isMatch = (result: SearchResultProps) => re.test(result.title);
     const resu = filter(products, isMatch);
-    console.log(resu);
     setState({ ...state, isLoading: false, results: resu, value: data.value });
-    //   setState({
-    //     ...state,
-    //     isLoading: false,
-    //     results: filter(products, isMatch)
-    //   });
   };
   const { isLoading, results, value } = state;
   return (

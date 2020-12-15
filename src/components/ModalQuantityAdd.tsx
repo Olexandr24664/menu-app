@@ -33,10 +33,14 @@ const ModalQuantityAdd: React.FC<TProp> = React.memo(function ModalQuantityAdd({
       if (errorMsg) {
         toast.error(errorMsg, { containerId: "modalQuantityAdd" });
       } else {
+        toast.success(
+          `Danie ${product.name} było dodane do zamówienia, ilość ${quantity}`,
+          { containerId: "modalQuantityAdd" }
+        );
         onClose();
       }
     },
-    [onClose]
+    [onClose, product.name, quantity]
   );
 
   const addProduct = useCallback(() => {

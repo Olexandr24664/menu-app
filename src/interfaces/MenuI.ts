@@ -4,5 +4,5 @@ export interface MenuItemI {
   id: string;
   icon: SemanticICONS;
   name: string;
-  amount: number;
+  products: string[];
 }

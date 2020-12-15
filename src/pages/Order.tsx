@@ -27,7 +27,7 @@ const OrderPage = () => {
     <Container
       style={{ marginTop: "7em", marginBottom: "7em", padding: "0 15px" }}
     >
-      <Grid centered columns={2}>
+      <Grid centered>
         <Grid.Column>
           <OrderSummaryForm
             orderItems={orderItems}

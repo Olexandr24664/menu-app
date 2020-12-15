@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Form,
   Input,
@@ -10,6 +10,9 @@ import {
   Header
 } from "semantic-ui-react";
 import { OrderItemI } from "../interfaces/OrderI";
+import { useDispatch } from "react-redux";
+import { addOrderItem } from "../actions";
+import { toast } from "react-toastify";
 
 type TProps = {
   orderItems: OrderItemI[];
@@ -18,6 +21,26 @@ type TProps = {
 
 const OrderSummaryForm: React.FC<TProps> = ({ orderItems, initialData }) => {
   const [formData, setFormData] = useState(initialData);
+  const dispatch = useDispatch();
+
+  const updateProductCb = useCallback(
+    (id: string) => {
+      return (errorMsg?: string) => {
+        if (errorMsg) {
+          toast.error(errorMsg, { containerId: "global" });
+          setFormData({ ...formData, [id]: initialData[id] });
+        }
+      };
+    },
+    [formData, initialData]
+  );
+
+  const updateOrderItem = useCallback(
+    (id: string, amount: number) => {
+      dispatch(addOrderItem(id, amount, updateProductCb(id)));
+    },
+    [dispatch, updateProductCb]
+  );
 
   const onChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -28,7 +51,7 @@ const OrderSummaryForm: React.FC<TProps> = ({ orderItems, initialData }) => {
     const formDataTotal = parseInt(formData["total"]);
     const currentValue = formData[data.name] * price;
     const total = formDataTotal - currentValue + quantity * price;
-
+    updateOrderItem(data.name, quantity);
     setFormData({ ...formData, [data.name]: quantity, total });
   };
 
